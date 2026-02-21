@@ -15,6 +15,11 @@ variable "ssh_allowed_ip" {
   sensitive   = true
 }
 
+variable "public_key_path" {
+  description = "Path to SSH public key"
+  type        = string
+}
+
 variable "db_name" {
   default = "wordpress"
 }
