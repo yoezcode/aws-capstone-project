@@ -30,3 +30,8 @@ resource "aws_security_group" "web" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_key_pair" "capstone" {
+  key_name   = "capstone-key"
+  public_key = file(var.public_key_path)
+}
