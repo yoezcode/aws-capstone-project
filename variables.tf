@@ -12,7 +12,7 @@ variable "project_name" {
 
 variable "ssh_allowed_ip" {
   description = "Your public IP"
-  sensitive = true
+  sensitive   = true
 }
 
 variable "db_name" {
