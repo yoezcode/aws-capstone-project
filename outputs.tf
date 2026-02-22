@@ -5,3 +5,7 @@ output "wordpress_url" {
 output "rds_endpoint" {
   value = aws_db_instance.wp.address
 }
+
+output "bastion" {
+  value = aws_instance.bastion.public_ip
+}
