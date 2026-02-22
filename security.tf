@@ -2,11 +2,12 @@ resource "aws_security_group" "web" {
   name   = "wp-web-sg"
   vpc_id = aws_vpc.main.id
 
+  #only the ALB security group should be allowed to talk to the web SG on port 80.
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb.id]
   }
 
   ingress {
