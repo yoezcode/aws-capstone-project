@@ -11,7 +11,7 @@ variable "project_name" {
 }
 
 variable "ssh_allowed_ip" {
-  description = "Your public IP"
+  description = "Only IP that is allowed to SSH"
   sensitive   = true
 }
 
