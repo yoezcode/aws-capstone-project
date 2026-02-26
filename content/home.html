@@ -1,0 +1,211 @@
+<style>
+body {
+  margin:0;
+  font-family: Inter, system-ui, sans-serif;
+  color:#e6edf3;
+
+  background:
+    linear-gradient(rgba(11,15,20,.60), rgba(11,15,20,.70)),
+    url('assets/background.jpg');
+
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+}
+
+.nav {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 32px;
+  backdrop-filter: blur(12px);
+  background:rgba(11,15,20,.35);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  z-index:1000;
+}
+
+.nav-actions {
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.nav-actions a {
+  color:#8b949e;
+  font-size:14px;
+  transition:.2s;
+}
+
+.nav-actions a:hover {
+  color:#22c55e;
+}
+
+.logo {
+  font-weight:600;
+  letter-spacing:.5px;
+}
+
+.login-btn {
+  padding:10px 18px;
+  border-radius:10px;
+  border:1px solid #22c55e;
+  color:#22c55e;
+  font-size:14px;
+  transition:.2s;
+}
+
+.login-btn:hover {
+  background:#22c55e;
+  color:#0b0f14;
+  box-shadow:0 8px 24px rgba(34,197,94,.25);
+}
+
+.hero {
+  text-align:center;
+  padding:120px 20px 80px;
+}
+
+.hero h1 {
+  font-size:48px;
+  margin-bottom:10px;
+}
+
+.hero p {
+  color:#e6e8eb;
+  font-size:18px;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+  max-width:1100px;
+  margin:60px auto;
+  padding:0 20px;
+}
+
+.card {
+  background:#111827;
+  padding:24px;
+  border-radius:14px;
+  border:1px solid #1f2937;
+  transition:.2s;
+}
+
+.card:hover {
+  transform:translateY(-4px);
+  border-color:#22c55e;
+  box-shadow:0 10px 30px rgba(34,197,94,.15);
+}
+
+.card h3 {
+  margin-top:0;
+}
+
+a {
+  color:#22c55e;
+  text-decoration:none;
+}
+
+.footer {
+  text-align:center;
+  padding:40px;
+  color:#6b7280;
+}
+
+.layout {
+  display:flex;
+  gap:40px;
+  max-width:1300px;
+  margin:60px auto;
+  padding:0 20px;
+}
+
+.sidebar {
+  width:220px;
+  position:sticky;
+  top:100px;
+  height:fit-content;
+}
+
+.sidebar h4 {
+  color:#03ce65;
+  margin-bottom:12px;
+  font-size: 27;
+}
+
+.sidebar a {
+  display:block;
+  padding:10px 14px;
+  border-radius:10px;
+  color:#ffffff;
+  font-size:19px;
+  transition:.2s;
+}
+
+.sidebar a:hover {
+  background:#111827;
+  color:#22c55e;
+  transform:translateX(4px);
+}
+</style>
+
+<div class="nav">
+  <div class="logo">AWS re/Start Capstone Project by Yasemin Özcelik </div>
+
+ <div class="nav-actions">
+    <a href="https://github.com/yoezcode" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/yoezc" target="_blank">LinkedIn</a>
+    <a class="login-btn" href="#">Login</a>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>Hello Friend!</h1>
+  <p>"We can only see a short distance ahead, but we can see plenty there that needs to be done." - Alan Turing</p>
+</div>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <h4>Topics</h4>
+    <a href="#">Getting started</a>
+    <a href="#">Community</a>
+    <a href="#">News</a>
+    <a href="#">FAQ</a>
+    <a href="#">Discord</a>
+    <a href="#">Sources</a>
+
+  </aside>
+<div class="grid">
+
+    <div class="card">
+  <h3>🛡 Introduction to Cyber Security</h3>
+  <p>Core concepts, attack surfaces and defensive thinking for beginners.</p>
+</div>
+
+<div class="card">
+  <h3>🐉 Kali Linux Setup</h3>
+  <p>Step-by-step guide to install and configure Kali Linux for security labs.</p>
+</div>
+
+<div class="card">
+  <h3>🧰 Build your Arsenal</h3>
+  <p>Tools, workflows and environments every security engineer should master.</p>
+</div>
+
+<div class="card">
+  <h3>🧩 How to Hack WordPress</h3>
+  <p>Learn common vulnerabilities, enumeration techniques and attack paths against WordPress applications.</p>
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+  Built with Terraform & WordPress
+</div>
