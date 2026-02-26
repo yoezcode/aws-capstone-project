@@ -1,34 +1,74 @@
 #!/bin/bash
 set -xe
 
-# update
 dnf update -y
 
-# install web stack
-dnf install -y httpd php php-mysqlnd wget tar
+dnf install -y httpd php php-mysqlnd wget tar mariadb105
 
 systemctl enable httpd
 systemctl start httpd
 
-# download wordpress
 cd /var/www/html
 
 wget https://wordpress.org/latest.tar.gz
 tar -xzf latest.tar.gz
-
 cp -r wordpress/* .
 rm -rf wordpress latest.tar.gz
 
-# create config
+# assets
+mkdir -p /var/www/html/assets
+echo "${homepage_assets}" | base64 -d > /var/www/html/assets/background.png
+
+# config
 cp wp-config-sample.php wp-config.php
 
-# inject DB settings (RDS)
 sed -i "s/database_name_here/${db_name}/" wp-config.php
 sed -i "s/username_here/${db_user}/" wp-config.php
 sed -i "s/password_here/${db_password}/" wp-config.php
 sed -i "s/localhost/${db_host}/" wp-config.php
 
-# permissions
-chown -R apache:apache /var/www/html
+# wp-cli
+/usr/bin/curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+chmod +x /usr/local/bin/wp
+ln -s /usr/local/bin/wp /usr/bin/wp || true
 
+chown -R apache:apache /var/www/html
 systemctl restart httpd
+
+until mysqladmin ping -h"${db_host}" --silent; do
+  sleep 5
+done
+
+cd /var/www/html
+
+if ! sudo -u apache wp core is-installed; then
+  sudo -u apache wp core install \
+    --url="${site_url}" \
+    --title="Portfolio" \
+    --admin_user=admin \
+    --admin_password=AdminPass123! \
+    --admin_email=admin@example.com \
+    --skip-email
+fi
+
+sudo -u apache wp option update siteurl "${site_url}"
+sudo -u apache wp option update home "${site_url}"
+
+# recreate homepage
+EXISTING_ID=$(sudo -u apache wp post list --post_type=page --name=home --field=ID)
+
+if [ -n "$EXISTING_ID" ]; then
+  sudo -u apache wp post delete $EXISTING_ID --force
+fi
+
+sudo -u apache wp post create \
+  --post_type=page \
+  --post_title="Home" \
+  --post_name="home" \
+  --post_content="${homepage_content}" \
+  --post_status=publish
+
+PAGE_ID=$(sudo -u apache wp post list --post_type=page --name=home --field=ID)
+
+sudo -u apache wp option update show_on_front page
+sudo -u apache wp option update page_on_front $PAGE_ID
