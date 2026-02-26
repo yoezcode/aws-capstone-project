@@ -8,10 +8,12 @@ resource "aws_launch_template" "wp" {
 
   #launch templates require base64 encoded
   user_data = base64encode(templatefile("${path.module}/userdata.sh.tmpl", {
-    db_name     = var.db_name
-    db_user     = var.db_user
-    db_password = var.db_password
-    db_host     = aws_db_instance.wp.address
+    db_name          = var.db_name
+    db_user          = var.db_user
+    db_password      = var.db_password
+    db_host          = aws_db_instance.wp.address
+    site_url         = "http://${aws_lb.wp.dns_name}"
+    homepage_content = file("${path.module}/content/home.html")
+    homepage_assets  = file("${path.module}/content/assets/background.jpg")
   }))
-
 }
